@@ -1,8 +1,9 @@
 {
-	"extends": "tslint:latest",
+	"extends": "tslint:all",
 	"rules": {
 		"semicolon": [true, "never"],
 		"indent": [true, "tabs"],
-		"interface-name": false
+		"interface-name": false,
+		"quotemark": [true, "single"]
 	}
 }

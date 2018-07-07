@@ -1,4 +1,1 @@
-class Foo {
-
-}
-export const bar = new Foo;
+import events from 'event-x'
