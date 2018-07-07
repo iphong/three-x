@@ -1,0 +1,19 @@
+{
+  "name": "three-x",
+  "version": "1.0.0",
+  "description": "Simple and easy to use react components for advanced 3D using WebGL and Thrree.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iphong/three-x.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iphong/three-x/issues"
+  },
+  "homepage": "https://github.com/iphong/three-x#readme"
+}
