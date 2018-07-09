@@ -1,6 +1,8 @@
 const path = require('path')
+const globals = require('./webpack.config').plugins[0].definitions
 
 module.exports = {
+	globals,
 	parser: 'babel-eslint',
 	env: {
 		browser: true,

@@ -2,7 +2,7 @@
 	"name": "three-x",
 	"version": "0.0.1",
 	"description": "Simple and easy to use react components for advanced 3D using WebGL and Thrree.js",
-	"main": "src/index.ts",
+	"main": "lib/bundle.umd.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -47,8 +47,8 @@
 		"webpack-cli": "^3.0.8"
 	},
 	"peerDependencies": {
-		"event-x": "^1.0.9",
 		"react": "^16.4.1",
+		"prop-types": "^15.6.2",
 		"three": "^0.94.0"
 	}
 }
