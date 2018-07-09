@@ -2,7 +2,7 @@
 	"name": "three-x",
 	"version": "0.0.1",
 	"description": "Simple and easy to use react components for advanced 3D using WebGL and Thrree.js",
-	"main": "index.js",
+	"main": "src/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

@@ -4,6 +4,10 @@
 		"semicolon": [true, "never"],
 		"indent": [true, "tabs"],
 		"interface-name": false,
-		"quotemark": [true, "single"]
+		"quotemark": [
+			true,
+			"single"
+		],
+		"no-default-export": false
 	}
 }
