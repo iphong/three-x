@@ -7,9 +7,28 @@ export class Object3D extends React.Component {
 	static defaultProps = {
 		children: null
 	}
+	static contextTypes = {
+		scene: PropTypes.instanceOf(React.Component),
+		parent: PropTypes.instanceOf(React.Component)
+	}
+	static childContextTypes = {
+		scene: PropTypes.instanceOf(React.Component),
+		parent: PropTypes.instanceOf(React.Component)
+	}
+	getChildContext() {
+		return {
+			parent: this
+		}
+	}
+	get parent() {
+		return this.context.parent
+	}
+	get scene() {
+		return this.context.scene
+	}
 	componentDidMount() {
 		if (this.object && this.parent) {
-			this.parent.add(this.object)
+			this.parent.object.add(this.object)
 		}
 		this.update()
 	}
@@ -18,18 +37,11 @@ export class Object3D extends React.Component {
 	}
 	componentWillUnmount() {
 		if (this.object && this.parent) {
-			this.parent.remove(this.object)
+			this.parent.object.remove(this.object)
 		}
 	}
 	update() {}
 	render() {
-		return (
-			<ParentContext.Consumer>
-				{parent => {
-					this.parent = parent
-					return <ParentContext.Provider value={this}>{this.props.children}</ParentContext.Provider>
-				}}
-			</ParentContext.Consumer>
-		)
+		return this.props.children
 	}
 }

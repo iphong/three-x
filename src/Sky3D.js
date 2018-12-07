@@ -17,7 +17,7 @@ export class Sky3D extends Object3D {
 	static defaultProps = {
 		...Object3D.defaultProps,
 		azimuth: 0.28,
-		inclination: -0.35,
+		inclination: -0.15,
 		rayleigh: 2,
 		turbidity: 10,
 		luminance: 1,
@@ -26,12 +26,11 @@ export class Sky3D extends Object3D {
 	}
 	sky = new Three.Sky()
 	light = new Three.DirectionalLight()
-	hemi = new Three.HemisphereLight()
-	ambient = new Three.AmbientLight()
-	object = Object.assign(new Three.Group(), { children: [this.sky, this.light, this.hemi, this.ambient] })
+	ambient = new Three.HemisphereLight()
+	object = Object.assign(new Three.Group(), { children: [this.sky, this.light, this.ambient] })
 
 	update() {
-		const { sky, light, hemi } = this
+		const { sky, light, ambient } = this
 		const distance = 100
 
 		const { inclination, azimuth, turbidity, rayleigh, luminance, mieCoefficient, mieDirectionalG } = this.props
@@ -58,9 +57,9 @@ export class Sky3D extends Object3D {
 		light.shadow.mapSize.width = 4096
 		light.shadow.mapSize.height = 4096
 
-		hemi.intensity = 0.6
-		hemi.color.setHSL(0.6, 1, 0.6)
-		hemi.groundColor.setHSL(0.095, 1, 0.75)
-		hemi.position.set(0, 50, 0)
+		ambient.intensity = 0.6
+		ambient.color.setHSL(0.6, 1, 0.6)
+		ambient.groundColor.setHSL(0.095, 1, 0.75)
+		ambient.position.set(0, 50, 0)
 	}
 }

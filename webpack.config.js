@@ -24,6 +24,14 @@ module.exports = {
 		})
 	],
 	externals: {
+		'three/examples/js/controls/FlyControls': 'three/examples/js/controls/FlyControls',
+		'three/examples/js/controls/MapControls': 'three/examples/js/controls/MapControls',
+		'three/examples/js/controls/OrbitControls': 'three/examples/js/controls/OrbitControls',
+		'three/examples/js/controls/PointerLockControls': 'three/examples/js/controls/PointerLockControls',
+		'three/src/helpers/GridHelper': 'three/src/helpers/GridHelper',
+		'three/examples/js/loaders/OBJLoader': 'three/examples/js/loaders/OBJLoader',
+		'three/examples/js/loaders/MTLLoader': 'three/examples/js/loaders/MTLLoader',
+		'three/examples/js/objects/Sky': 'three/examples/js/objects/Sky',
 		three: {
 			commonjs: 'three',
 			commonjs2: 'three',

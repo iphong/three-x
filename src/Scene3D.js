@@ -3,7 +3,7 @@ import 'three/examples/js/controls/MapControls'
 import 'three/examples/js/controls/OrbitControls'
 import 'three/examples/js/controls/PointerLockControls'
 
-import { Object3D, ParentContext } from './Object3D'
+import { Object3D } from './Object3D'
 
 export class Scene3D extends Object3D {
 	static propTypes = {
@@ -24,66 +24,73 @@ export class Scene3D extends Object3D {
 		near: 0.01,
 		zoom: 1
 	}
+	getChildContext() {
+		return {
+			...super.getChildContext(),
+			scene: this
+		}
+	}
 	clock = new Three.Clock()
 	wrapper = React.createRef()
-	scene = new Three.Scene()
+	object = new Three.Scene()
 	camera = new Three.PerspectiveCamera()
 	renderer = new Three.WebGLRenderer({ antialias: true })
 	controls = {
 		// fpv: new Three.PointerLockControls(this.camera),
 		// fly: new Three.FlyControls(this.camera),
 		// map: new Three.MapControls(this.camera),
-		orbit: new Three.OrbitControls(this.camera)
+		// orbit: new Three.OrbitControls(this.camera)
 	}
 
 	componentDidMount() {
+		window.v = this
 		this.mounted = true
 		// this.controls.map.enabled = false
-		this.controls.orbit.enabled = false
+		// this.controls.orbit.enabled = false
 		// this.controls.screenSpacePanning = true
 		// this.controls.fly.enabled = false
 		// this.controls.fpv.enabled = false
 		this.wrapper.current.appendChild(this.renderer.domElement)
-		this.camera.position.set(-2, 1, 7)
+		this.camera.position.set(-2, 5, 7)
 		// this.object.add(this.controls.fpv.getObject())
 		// this.controls.fly.dragToLook = false
 		// this.controls.fly.movementSpeed = 1
 		// this.controls.fly.rollSpeed = 0.5
 		// this.controls.map.target.set(0, 2, 0)
-		this.controls.orbit.target.set(0, 1, 0)
+		// this.controls.orbit.target.set(0, 1, 0)
 		addEventListener('resize', this.update, true)
 		this.update()
 		this.animate()
 
 		// Test objects
-		new Three.TextureLoader().setPath('/ss-virtual-showroom/assets/').load('metal.jpg', texture => {
-			texture.mapping = Three.SphericalReflectionMapping
-			const geometry = new Three.SphereGeometry(0.5, 48, 48)
-			const material = new Three.MeshLambertMaterial({
-				envMap: texture
-			})
-			this.box = new Three.Mesh(geometry, material)
-			this.box.position.set(-1.5, 0.5, 0)
-			this.box.castShadow = true
-			this.scene.add(this.box)
-			this.update()
-		})
-		new Three.TextureLoader()
-			.setPath('/ss-virtual-showroom/assets/')
-			.load('2294472375_24a3b8ef46_o.jpg', texture => {
-				texture.mapping = Three.EquirectangularReflectionMapping
-				const geometry = new Three.SphereGeometry(0.5, 48, 48)
-				const material = new Three.MeshPhongMaterial({
-					envMap: texture,
-					emissive: 0.5,
-					reflectivity: 0.7
-				})
-				this.box = new Three.Mesh(geometry, material)
-				this.box.position.set(1.5, 0.5, 0)
-				this.box.castShadow = true
-				this.scene.add(this.box)
-				this.update()
-			})
+		// new Three.TextureLoader().setPath('/ss-virtual-showroom/assets/').load('metal.jpg', texture => {
+		// 	texture.mapping = Three.SphericalReflectionMapping
+		// 	const geometry = new Three.SphereGeometry(0.5, 48, 48)
+		// 	const material = new Three.MeshLambertMaterial({
+		// 		envMap: texture
+		// 	})
+		// 	this.box = new Three.Mesh(geometry, material)
+		// 	this.box.position.set(-1.5, 0.5, 0)
+		// 	this.box.castShadow = true
+		// 	this.object.add(this.box)
+		// 	this.update()
+		// })
+		// new Three.TextureLoader()
+		// 	.setPath('/ss-virtual-showroom/assets/')
+		// 	.load('2294472375_24a3b8ef46_o.jpg', texture => {
+		// 		texture.mapping = Three.EquirectangularReflectionMapping
+		// 		const geometry = new Three.SphereGeometry(0.5, 48, 48)
+		// 		const material = new Three.MeshPhongMaterial({
+		// 			envMap: texture,
+		// 			emissive: 0.5,
+		// 			reflectivity: 0.7
+		// 		})
+		// 		this.box = new Three.Mesh(geometry, material)
+		// 		this.box.position.set(1.5, 0.5, 0)
+		// 		this.box.castShadow = true
+		// 		this.object.add(this.box)
+		// 		this.update()
+		// 	})
 	}
 
 	componentWillUnmount() {
@@ -102,18 +109,18 @@ export class Scene3D extends Object3D {
 		this.renderer.setSize(width, height)
 		this.renderer.shadowMap.enabled = true
 		this.renderer.antialias = this.props.antialias
-		if (this.controls.current !== this.controls[this.props.controls]) {
-			if (this.controls.current) {
-				this.controls.current.enabled = false
-			}
-			this.controls.current = this.controls[this.props.controls]
-			this.controls.current.enabled = true
-		}
+		// if (this.controls.current !== this.controls[this.props.controls]) {
+		// 	if (this.controls.current) {
+		// 		this.controls.current.enabled = false
+		// 	}
+		// 	this.controls.current = this.controls[this.props.controls]
+		// 	this.controls.current.enabled = true
+		// }
 	}
 
 	animate = () => {
-		this.controls.current.update()
-		this.renderer.render(this.scene, this.camera)
+		// this.controls.current.update()
+		this.renderer.render(this.object, this.camera)
 		if (this.mounted) {
 			requestAnimationFrame(this.animate)
 		}
@@ -124,10 +131,9 @@ export class Scene3D extends Object3D {
 
 	render() {
 		return (
-			<ParentContext.Provider value={this.scene}>
+			<div ref={this.wrapper} onClick={this.handleClick}>
 				{this.props.children}
-				<div ref={this.wrapper} onClick={this.handleClick} />
-			</ParentContext.Provider>
+			</div>
 		)
 	}
 }
